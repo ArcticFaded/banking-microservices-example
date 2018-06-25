@@ -94,7 +94,7 @@ public class ActionsControllerUnitTests {
     }
 
     @Test
-    public void whenDepositIsCalledAndAccountDoesNotExist_thenReturnStatusBadRequest() throws Exception {
+    public void whenDepositIsCalledAndAccountDoesNotExist_thenReturnMessageAndStatusBadRequest() throws Exception {
         // arrange
         when(transactionService.deposit(customerId, accountId, baseAmount)).thenThrow(noAccountExistsException);
 
@@ -112,7 +112,8 @@ public class ActionsControllerUnitTests {
         actionsController.transfer(baseAmount, accountId, customerId, destinationId);
 
         // assert
-        verify(transactionService, times(1)).transfer(customerId, accountId, destinationId, baseAmount);
+        verify(transactionService, times(1))
+                .transfer(customerId, accountId, destinationId, baseAmount);
     }
 
     @Test
@@ -129,7 +130,8 @@ public class ActionsControllerUnitTests {
     }
 
     @Test
-    public void whenTransferIsCalledAndAccountDoesNotHaveEnoughBalance_thenReturnStatusBadRequest() throws Exception {
+    public void whenTransferIsCalledAndAccountDoesNotHaveEnoughBalance_thenReturnMessageAndStatusBadRequest()
+            throws Exception {
         // arrange
         when(transactionService.transfer(customerId, accountId, destinationId, baseAmount))
                 .thenThrow(insufficientBalanceException);
@@ -143,7 +145,7 @@ public class ActionsControllerUnitTests {
     }
 
     @Test
-    public void whenTransferIsCalledAndAccountDoesNotExist_thenReturnStatusBadRequest() throws Exception {
+    public void whenTransferIsCalledAndAccountDoesNotExist_thenReturnMessageAndStatusBadRequest() throws Exception {
         // arrange
         when(transactionService.transfer(customerId, accountId, destinationId, baseAmount))
                 .thenThrow(noAccountExistsException);
