@@ -5,13 +5,13 @@ services:
     ports:
       - "8761:8761"
     networks:
-      - bank
+      - banking-microservices-example_bank
   edgeservice:
     build: 'edgeservice/'
     ports:
       - "8080:8080"
     networks:
-      - bank
+      - banking-microservices-example_bank
   mongo:
     image: 'mongo:3.4.1'
     ports:
@@ -19,14 +19,14 @@ services:
     volumes:
       - 'mongo:/data/db'
     networks:
-      - bank
+      - banking-microservices-example_bank
   rabbitmq:
     image: rabbitmq:management
     ports:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - bank
+      - banking-microservices-example_bank
   configurationservice:
     image: aista/configuration-service
     ports:
@@ -34,10 +34,10 @@ services:
     depends_on:
       - discoveryservice
     networks:
-      - bank
+      - banking-microservices-example_bank
 
 networks:
-  bank:
+  banking-microservices-example_bank:
     driver: bridge
 
 volumes:
